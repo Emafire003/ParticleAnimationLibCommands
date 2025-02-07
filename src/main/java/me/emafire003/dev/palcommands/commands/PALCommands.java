@@ -35,7 +35,8 @@ public class PALCommands {
                 new VortexCommand(),
                 new LineCommand(),
                 new AnimatedCircleCommand(),
-                new ColoredImageCommand()
+                new ColoredImageCommand(),
+                new BlackAndWhiteImageCommand()
         };
 
         for (PALCommand command : commands) {
