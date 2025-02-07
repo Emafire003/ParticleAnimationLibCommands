@@ -20,6 +20,7 @@ public class ParticleAnimationLibCommands implements ModInitializer {
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
 
+		PALCommands.registerArguments();
 		CommandRegistrationCallback.EVENT.register(PALCommands::registerCommands);
 	}
 
