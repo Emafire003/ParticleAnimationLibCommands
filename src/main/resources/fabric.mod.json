@@ -1,0 +1,34 @@
+{
+	"schemaVersion": 1,
+	"id": "palcommands",
+	"version": "${version}",
+	"name": "Particle Animation Library (PAL) Commands",
+	"description": "A companion mod to ParticleAnimationLib to easily spawn in and control awesome particle effects with commands!",
+	"authors": [
+		"Emafire003"
+	],
+	"contact": {
+		"homepage": "https://modrinth.com/palcommands",
+		"sources": "https://github.com/Emafire003/ParticleAnimationLibCommands",
+		"issues": "https://github.com/Emafire003/ParticleAnimationLibCommands/issues"
+	},
+	"license": "MIT",
+	"icon": "assets/palcommands/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"me.emafire003.dev.palcommands.ParticleAnimationLibCommands"
+		]
+	},
+	"mixins": [
+		"palcommands.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.15.0",
+		"minecraft": ">=1.17-",
+		"java": ">=16"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
