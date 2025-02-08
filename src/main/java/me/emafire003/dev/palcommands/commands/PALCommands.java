@@ -46,7 +46,8 @@ public class PALCommands {
                 new AnimatedCircleCommand(),
                 new ImageCommand(),
                 new TextCommand(),
-                new GetFontsCommand()
+                new GetFontsCommand(),
+                new DonutCommand()
         };
 
         for (PALCommand command : commands) {
