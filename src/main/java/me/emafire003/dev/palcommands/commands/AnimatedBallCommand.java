@@ -5,6 +5,7 @@ import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.tree.LiteralCommandNode;
+import me.emafire003.dev.particleanimationlib.ParticleAnimationLib;
 import me.emafire003.dev.particleanimationlib.effects.AnimatedBallEffect;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.argument.ParticleEffectArgumentType;
@@ -60,6 +61,7 @@ public class AnimatedBallCommand implements PALCommand {
             Vec3d factors = Vec3ArgumentType.getVec3(context, "factors");
             Vec3d rotations = Vec3ArgumentType.getVec3(context, "rotation");
 
+
             Vec3d pos = Vec3ArgumentType.getVec3(context, "pos");
             ParticleEffect particle = ParticleEffectArgumentType.getParticle(context, "particle");
             AnimatedBallEffect effect = new AnimatedBallEffect(source.getWorld(), particle, pos,
@@ -80,14 +82,16 @@ public class AnimatedBallCommand implements PALCommand {
     public LiteralCommandNode<ServerCommandSource> getNode(CommandRegistryAccess registryAccess) {
         return CommandManager
                 .literal("animatedball")
-                .then(CommandManager.argument("particle", ParticleEffectArgumentType.particleEffect(registryAccess))
-                        .then(CommandManager.argument("pos", Vec3ArgumentType.vec3())
-                                .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
-                                        .executes(this::spawnDefault)
+                .then(CommandManager.literal("demo")
+                        .then(CommandManager.argument("particle", ParticleEffectArgumentType.particleEffect(registryAccess))
+                                .then(CommandManager.argument("pos", Vec3ArgumentType.vec3())
+                                        .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
+                                                .executes(this::spawnDefault)
+                                        )
+
                                 )
 
                         )
-
                 )
                 .then(CommandManager.argument("particle", ParticleEffectArgumentType.particleEffect(registryAccess))
                         .then(CommandManager.argument("pos", Vec3ArgumentType.vec3())

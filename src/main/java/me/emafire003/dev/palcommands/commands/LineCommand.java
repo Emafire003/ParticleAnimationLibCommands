@@ -118,11 +118,47 @@ public class LineCommand implements PALCommand {
         }
     }
 
+    private int spawnDemo(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+        ServerCommandSource source = context.getSource();
+
+        try{
+            if(source.getWorld().isClient()){
+                return 0;
+            }
+
+            if(source.isExecutedByPlayer() && source.getPlayer() != null){
+                Vec3d pos = Vec3ArgumentType.getVec3(context, "origin");
+                ParticleEffect particle = ParticleEffectArgumentType.getParticle(context, "particle");
+                LineEffect effect = LineEffect.builder(source.getWorld(), particle, pos).length(5).build();
+                effect.runFor(IntegerArgumentType.getInteger(context, "duration"));
+
+            }else{
+                source.sendError(Text.literal("This command must be executed by a player! Try to specify the Yaw and Pitch if you are running the command from the console!"));
+                return 0;
+            }
+
+            return 1;
+        }catch(Exception e){
+            e.printStackTrace();
+            source.sendFeedback( () -> Text.literal("Error: " + e),false);
+            return 0;
+        }
+    }
+
 
 
     public LiteralCommandNode<ServerCommandSource> getNode(CommandRegistryAccess registryAccess) {
         return CommandManager
                 .literal("line")
+                .then(CommandManager.literal("demo")
+                        .then(CommandManager.argument("particle", ParticleEffectArgumentType.particleEffect(registryAccess))
+                                .then(CommandManager.argument("origin", Vec3ArgumentType.vec3())
+                                        .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
+                                                .executes(this::spawnDemo)
+                                        )
+                                )
+                        )
+                )
                 .then(CommandManager.argument("particle", ParticleEffectArgumentType.particleEffect(registryAccess))
                         .then(CommandManager.argument("origin", Vec3ArgumentType.vec3())
                                 .then(CommandManager.argument("target", Vec3ArgumentType.vec3())

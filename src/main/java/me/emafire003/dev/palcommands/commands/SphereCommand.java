@@ -43,9 +43,36 @@ public class SphereCommand implements PALCommand {
         }
     }
 
+    private int spawnDemo(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+        ServerCommandSource source = context.getSource();
+
+        try{
+
+            Vec3d pos = Vec3ArgumentType.getVec3(context, "originPos");
+            ParticleEffect particle = ParticleEffectArgumentType.getParticle(context, "particle");
+            SphereEffect effect = SphereEffect.builder(source.getWorld(), particle, pos).build();
+            effect.runFor(IntegerArgumentType.getInteger(context, "duration"));
+
+            return 1;
+        }catch(Exception e){
+            e.printStackTrace();
+            source.sendFeedback( () -> Text.literal("Error: " + e),false);
+            return 0;
+        }
+    }
+
     public LiteralCommandNode<ServerCommandSource> getNode(CommandRegistryAccess registryAccess) {
         return CommandManager
                 .literal("sphere")
+                .then(CommandManager.literal("demo")
+                        .then(CommandManager.argument("particle", ParticleEffectArgumentType.particleEffect(registryAccess))
+                                .then(CommandManager.argument("originPos", Vec3ArgumentType.vec3())
+                                        .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
+                                                .executes(this::spawnDemo)
+                                        )
+                                )
+                        )
+                )
                 .then(CommandManager.argument("particle", ParticleEffectArgumentType.particleEffect(registryAccess))
                         .then(CommandManager.argument("originPos", Vec3ArgumentType.vec3())
                                 .then(CommandManager.argument("count", IntegerArgumentType.integer(0))

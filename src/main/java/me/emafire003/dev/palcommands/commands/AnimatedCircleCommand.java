@@ -77,9 +77,37 @@ public class AnimatedCircleCommand implements PALCommand {
         }
     }
 
+    private int spawnDemo(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+        ServerCommandSource source = context.getSource();
+
+        //nt particles_per_circle, float radius, float radiusGrow, double maxAngle, boolean wholeCircle, boolean resetCircle, boolean enableRotation,
+        //     * Vec3d angularVelocity, Vec3d rotations, Vec3d subtractFromOrigin
+        try{
+            Vec3d pos = Vec3ArgumentType.getVec3(context, "originPos");
+            ParticleEffect particle = ParticleEffectArgumentType.getParticle(context, "particle");
+            AnimatedCircleEffect effect = AnimatedCircleEffect.builder(source.getWorld(), particle, pos).build();
+            effect.runFor(IntegerArgumentType.getInteger(context, "duration"));
+
+            return 1;
+        }catch(Exception e){
+            e.printStackTrace();
+            source.sendFeedback( () -> Text.literal("Error: " + e),false);
+            return 0;
+        }
+    }
+
     public LiteralCommandNode<ServerCommandSource> getNode(CommandRegistryAccess registryAccess) {
         return CommandManager
                 .literal("animatedcircle")
+                .then(CommandManager.literal("demo")
+                        .then(CommandManager.argument("particle", ParticleEffectArgumentType.particleEffect(registryAccess))
+                                .then(CommandManager.argument("originPos", Vec3ArgumentType.vec3())
+                                        .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
+                                                .executes(this::spawnDemo)
+                                        )
+                                )
+                        )
+                )
                 .then(CommandManager.argument("particle", ParticleEffectArgumentType.particleEffect(registryAccess))
                         .then(CommandManager.argument("originPos", Vec3ArgumentType.vec3())
                                 .then(CommandManager.argument("count", IntegerArgumentType.integer(0))

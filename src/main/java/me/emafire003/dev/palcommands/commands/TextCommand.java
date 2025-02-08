@@ -104,9 +104,38 @@ public class TextCommand implements PALCommand {
             return 0;
         }
     }
+
+    private int spawnDemo(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+        ServerCommandSource source = context.getSource();
+
+        try{
+            Vec3d pos = Vec3ArgumentType.getVec3(context, "originPos");
+            ParticleEffect particle = ParticleEffectArgumentType.getParticle(context, "particle");
+
+            TextEffect effect = TextEffect.builder(source.getWorld(), particle, pos)
+                    .text("Hello world").size(0.1f).font(new Font("Arial", Font.PLAIN, 15)).build();
+            effect.runFor(IntegerArgumentType.getInteger(context, "duration"));
+
+            return 1;
+        }catch(Exception e){
+            e.printStackTrace();
+            source.sendFeedback( () -> Text.literal("Error: " + e),false);
+            return 0;
+        }
+    }
+
     public LiteralCommandNode<ServerCommandSource> getNode(CommandRegistryAccess registryAccess) {
         return CommandManager
                 .literal("text")
+                .then(CommandManager.literal("demo")
+                        .then(CommandManager.argument("particle", ParticleEffectArgumentType.particleEffect(registryAccess))
+                                .then(CommandManager.argument("originPos", Vec3ArgumentType.vec3())
+                                        .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
+                                                .executes(this::spawnDemo)
+                                        )
+                                )
+                        )
+                )
                 .then(CommandManager.argument("particle", ParticleEffectArgumentType.particleEffect(registryAccess))
                         .then(CommandManager.argument("originPos", Vec3ArgumentType.vec3())
                                 .then(CommandManager.argument("text_to_display", StringArgumentType.string())
@@ -149,7 +178,7 @@ public class TextCommand implements PALCommand {
                                                                                                 .then(CommandManager.argument("font_style", FontStyleArgumentType.fontStyle())
                                                                                                         .then(CommandManager.argument("font_size", IntegerArgumentType.integer(0))
                                                                                                                 .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
-                                                                                                                        .executes(this::spawnEffectNoYP)
+                                                                                                                        .executes(this::spawnEffect)
                                                                                                                 )
                                                                                                         )
 

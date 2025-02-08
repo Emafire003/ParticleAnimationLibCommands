@@ -46,10 +46,36 @@ public class ImageCommand implements PALCommand {
         }
     }
 
+    private int spawnDemo(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+        ServerCommandSource source = context.getSource();
+
+        try{
+
+            ImageEffect imageEffect = ImageEffect
+                    .builder(source.getWorld(), Vec3ArgumentType.getVec3(context, "pos"), StringArgumentType.getString(context, "filePath"))
+                    .transparency(true).build();
+            imageEffect.runFor(IntegerArgumentType.getInteger(context, "duration"));
+            return 1;
+        }catch(Exception e){
+            e.printStackTrace();
+            source.sendFeedback( () -> Text.literal("Error: " + e),false);
+            return 0;
+        }
+    }
+
 
     public LiteralCommandNode<ServerCommandSource> getNode(CommandRegistryAccess registryAccess) {
         return CommandManager
                 .literal("image")
+                .then(CommandManager.literal("demo")
+                        .then(CommandManager.argument("filePath", StringArgumentType.string())
+                                .then(CommandManager.argument("pos", Vec3ArgumentType.vec3())
+                                        .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
+                                                .executes(this::spawnDemo)
+                                        )
+                                )
+                        )
+                )
                 .then(CommandManager.argument("filePath", StringArgumentType.string())
                         .then(CommandManager.argument("pos", Vec3ArgumentType.vec3())
                                 .then(CommandManager.argument("transparent", BoolArgumentType.bool())
