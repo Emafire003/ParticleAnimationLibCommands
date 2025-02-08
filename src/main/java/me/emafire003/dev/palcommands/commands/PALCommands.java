@@ -44,8 +44,7 @@ public class PALCommands {
                 new VortexCommand(),
                 new LineCommand(),
                 new AnimatedCircleCommand(),
-                new ColoredImageCommand(),
-                new BlackAndWhiteImageCommand(),
+                new ImageCommand(),
                 new TextCommand(),
                 new GetFontsCommand()
         };
