@@ -32,7 +32,7 @@ public class AnimatedCircleCommand implements PALCommand {
                         FloatArgumentType.getFloat(context, "radiusGrow"), DoubleArgumentType.getDouble(context, "maxAngle"),
                         BoolArgumentType.getBool(context, "wholeCircle"),BoolArgumentType.getBool(context, "resetCircle"),
                         BoolArgumentType.getBool(context, "enableRotation"), Vec3ArgumentType.getVec3(context, "angularVelocity"),
-                        Vec3ArgumentType.getVec3(context, "rotations"), Vec3ArgumentType.getVec3(context, "subtractFromOrigin")
+                        Vec3ArgumentType.getVec3(context, "rotations")
 
                 );
                 effect.runFor(IntegerArgumentType.getInteger(context, "duration"));
@@ -64,7 +64,7 @@ public class AnimatedCircleCommand implements PALCommand {
                     FloatArgumentType.getFloat(context, "radiusGrow"), DoubleArgumentType.getDouble(context, "maxAngle"),
                     BoolArgumentType.getBool(context, "wholeCircle"),BoolArgumentType.getBool(context, "resetCircle"),
                     BoolArgumentType.getBool(context, "enableRotation"), Vec3ArgumentType.getVec3(context, "angularVelocity"),
-                    Vec3ArgumentType.getVec3(context, "rotations"), Vec3ArgumentType.getVec3(context, "subtractFromOrigin")
+                    Vec3ArgumentType.getVec3(context, "rotations")
 
             );
             effect.runFor(IntegerArgumentType.getInteger(context, "duration"));
@@ -119,10 +119,8 @@ public class AnimatedCircleCommand implements PALCommand {
                                                                                 .then(CommandManager.argument("enableRotation", BoolArgumentType.bool())
                                                                                         .then(CommandManager.argument("angularVelocity", Vec3ArgumentType.vec3())
                                                                                                 .then(CommandManager.argument("rotations", Vec3ArgumentType.vec3())
-                                                                                                        .then(CommandManager.argument("subtractFromOrigin", Vec3ArgumentType.vec3())
-                                                                                                                .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
-                                                                                                                        .executes(this::spawnEffectNoYP)
-                                                                                                                )
+                                                                                                        .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
+                                                                                                                .executes(this::spawnEffectNoYP)
                                                                                                         )
                                                                                                 )
 
@@ -155,10 +153,8 @@ public class AnimatedCircleCommand implements PALCommand {
                                                                                                 .then(CommandManager.argument("enableRotation", BoolArgumentType.bool())
                                                                                                         .then(CommandManager.argument("angularVelocity", Vec3ArgumentType.vec3())
                                                                                                                 .then(CommandManager.argument("rotations", Vec3ArgumentType.vec3())
-                                                                                                                        .then(CommandManager.argument("subtractFromOrigin", Vec3ArgumentType.vec3())
-                                                                                                                                .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
-                                                                                                                                        .executes(this::spawnEffect)
-                                                                                                                                )
+                                                                                                                        .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
+                                                                                                                                .executes(this::spawnEffect)
                                                                                                                         )
                                                                                                                 )
 

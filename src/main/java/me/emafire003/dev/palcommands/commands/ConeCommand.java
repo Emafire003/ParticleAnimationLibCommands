@@ -28,7 +28,7 @@ public class ConeCommand implements PALCommand {
                 ParticleEffect particle = ParticleEffectArgumentType.getParticle(context, "particle");
                 ConeEffect effect = new ConeEffect(source.getWorld(), particle, pos,
                         source.getPlayer().getYaw(), source.getPlayer().getPitch(), IntegerArgumentType.getInteger(context, "count"),
-                        IntegerArgumentType.getInteger(context, "particles_per_iteration"), IntegerArgumentType.getInteger(context, "strands"),
+                        IntegerArgumentType.getInteger(context, "particlesPerIteration"), IntegerArgumentType.getInteger(context, "strands"),
                         FloatArgumentType.getFloat(context, "lengthGrow"), FloatArgumentType.getFloat(context, "radiusGrow"),
                         DoubleArgumentType.getDouble(context, "angularVelocity"), DoubleArgumentType.getDouble(context, "startingRotation"),
                         BoolArgumentType.getBool(context, "solid"), BoolArgumentType.getBool(context, "randomStart")
@@ -57,7 +57,7 @@ public class ConeCommand implements PALCommand {
             ParticleEffect particle = ParticleEffectArgumentType.getParticle(context, "particle");
             ConeEffect effect = new ConeEffect(source.getWorld(), particle, pos,
                     FloatArgumentType.getFloat(context, "yaw"), FloatArgumentType.getFloat(context, "pitch"), IntegerArgumentType.getInteger(context, "count"),
-                    IntegerArgumentType.getInteger(context, "particles_per_iteration"), IntegerArgumentType.getInteger(context, "strands"),
+                    IntegerArgumentType.getInteger(context, "particlesPerIteration"), IntegerArgumentType.getInteger(context, "strands"),
                     FloatArgumentType.getFloat(context, "lengthGrow"), FloatArgumentType.getFloat(context, "radiusGrow"),
                     DoubleArgumentType.getDouble(context, "angularVelocity"), DoubleArgumentType.getDouble(context, "startingRotation"),
                     BoolArgumentType.getBool(context, "solid"), BoolArgumentType.getBool(context, "randomStart")
@@ -107,7 +107,7 @@ public class ConeCommand implements PALCommand {
                 .then(CommandManager.argument("particle", ParticleEffectArgumentType.particleEffect(registryAccess))
                         .then(CommandManager.argument("originPos", Vec3ArgumentType.vec3())
                                 .then(CommandManager.argument("count", IntegerArgumentType.integer(0))
-                                        .then(CommandManager.argument("particles_per_iteration", IntegerArgumentType.integer(0))
+                                        .then(CommandManager.argument("particlesPerIteration", IntegerArgumentType.integer(0))
                                                 .then(CommandManager.argument("strands", IntegerArgumentType.integer())
                                                         .then(CommandManager.argument("lengthGrow", FloatArgumentType.floatArg(0))
                                                                 .then(CommandManager.argument("radiusGrow", FloatArgumentType.floatArg(0))
@@ -140,7 +140,7 @@ public class ConeCommand implements PALCommand {
                                 .then(CommandManager.argument("yaw", FloatArgumentType.floatArg())
                                         .then(CommandManager.argument("pitch", FloatArgumentType.floatArg())
                                                 .then(CommandManager.argument("count", IntegerArgumentType.integer(0))
-                                                        .then(CommandManager.argument("particles_per_iteration", IntegerArgumentType.integer(0))
+                                                        .then(CommandManager.argument("particlesPerIteration", IntegerArgumentType.integer(0))
                                                                 .then(CommandManager.argument("strands", IntegerArgumentType.integer())
                                                                         .then(CommandManager.argument("lengthGrow", FloatArgumentType.floatArg(0))
                                                                                 .then(CommandManager.argument("radiusGrow", FloatArgumentType.floatArg(0))

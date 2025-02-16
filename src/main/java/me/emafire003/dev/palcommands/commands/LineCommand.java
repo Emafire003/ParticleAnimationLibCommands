@@ -32,11 +32,11 @@ public class LineCommand implements PALCommand {
             ParticleEffect particle = ParticleEffectArgumentType.getParticle(context, "particle");
             LineEffect effect = new LineEffect(source.getWorld(), particle, pos, target,
                     IntegerArgumentType.getInteger(context, "count"),
-                    IntegerArgumentType.getInteger(context, "max_length"),
+                    IntegerArgumentType.getInteger(context, "maxLength"),
                     BoolArgumentType.getBool(context, "zigZag"),
-                    IntegerArgumentType.getInteger(context, "number_of_zigZags"),
-                    Vec3ArgumentType.getVec3(context, "zigZag_Offset"),
-                    Vec3ArgumentType.getVec3(context, "zigZag_RelativeOffset")
+                    IntegerArgumentType.getInteger(context, "zigZagsNumber"),
+                    Vec3ArgumentType.getVec3(context, "zigZagOffset"),
+                    Vec3ArgumentType.getVec3(context, "zigZagRelativeOffset")
             );
             effect.runFor(IntegerArgumentType.getInteger(context, "duration"));
 
@@ -64,9 +64,9 @@ public class LineCommand implements PALCommand {
                         IntegerArgumentType.getInteger(context, "count"),
                         IntegerArgumentType.getInteger(context, "length"),
                         BoolArgumentType.getBool(context, "zigZag"),
-                        IntegerArgumentType.getInteger(context, "number_of_zigZags"),
-                        Vec3ArgumentType.getVec3(context, "zigZag_Offset"),
-                        Vec3ArgumentType.getVec3(context, "zigZag_RelativeOffset")
+                        IntegerArgumentType.getInteger(context, "zigZagsNumber"),
+                        Vec3ArgumentType.getVec3(context, "zigZagOffset"),
+                        Vec3ArgumentType.getVec3(context, "zigZagRelativeOffset")
                 );
                 effect.runFor(IntegerArgumentType.getInteger(context, "duration"));
 
@@ -99,9 +99,9 @@ public class LineCommand implements PALCommand {
                         IntegerArgumentType.getInteger(context, "count"),
                         IntegerArgumentType.getInteger(context, "length"),
                         BoolArgumentType.getBool(context, "zigZag"),
-                        IntegerArgumentType.getInteger(context, "number_of_zigZags"),
-                        Vec3ArgumentType.getVec3(context, "zigZag_Offset"),
-                        Vec3ArgumentType.getVec3(context, "zigZag_RelativeOffset")
+                        IntegerArgumentType.getInteger(context, "zigZagsNumber"),
+                        Vec3ArgumentType.getVec3(context, "zigZagOffset"),
+                        Vec3ArgumentType.getVec3(context, "zigZagRelativeOffset")
                 );
                 effect.runFor(IntegerArgumentType.getInteger(context, "duration"));
 
@@ -118,6 +118,8 @@ public class LineCommand implements PALCommand {
         }
     }
 
+    //TODO see why it spawns two lines instead of one!!!
+    //TODO add "smart effects" that read the age of the selected particle type and create a new iteration just a bit before they expire
     private int spawnDemo(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
         ServerCommandSource source = context.getSource();
 
@@ -163,11 +165,11 @@ public class LineCommand implements PALCommand {
                         .then(CommandManager.argument("origin", Vec3ArgumentType.vec3())
                                 .then(CommandManager.argument("target", Vec3ArgumentType.vec3())
                                         .then(CommandManager.argument("count", IntegerArgumentType.integer(0))
-                                                .then(CommandManager.argument("max_length", IntegerArgumentType.integer(0))
+                                                .then(CommandManager.argument("maxLength", IntegerArgumentType.integer(0))
                                                         .then(CommandManager.argument("zigZag", BoolArgumentType.bool())
-                                                                .then(CommandManager.argument("number_of_zigZags", IntegerArgumentType.integer(0))
-                                                                        .then(CommandManager.argument("zigZag_Offset", Vec3ArgumentType.vec3())
-                                                                                .then(CommandManager.argument("zigZag_RelativeOffset", Vec3ArgumentType.vec3())
+                                                                .then(CommandManager.argument("zigZagsNumber", IntegerArgumentType.integer(0))
+                                                                        .then(CommandManager.argument("zigZagOffset", Vec3ArgumentType.vec3())
+                                                                                .then(CommandManager.argument("zigZagRelativeOffset", Vec3ArgumentType.vec3())
                                                                                         .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
                                                                                                 .executes(this::spawnEffectTarget)
                                                                                         )
@@ -188,9 +190,9 @@ public class LineCommand implements PALCommand {
                                         .then(CommandManager.argument("count", IntegerArgumentType.integer(0))
                                                 .then(CommandManager.argument("length", IntegerArgumentType.integer(0))
                                                         .then(CommandManager.argument("zigZag", BoolArgumentType.bool())
-                                                                .then(CommandManager.argument("number_of_zigZags", IntegerArgumentType.integer(0))
-                                                                        .then(CommandManager.argument("zigZag_Offset", Vec3ArgumentType.vec3())
-                                                                                .then(CommandManager.argument("zigZag_RelativeOffset", Vec3ArgumentType.vec3())
+                                                                .then(CommandManager.argument("zigZagsNumber", IntegerArgumentType.integer(0))
+                                                                        .then(CommandManager.argument("zigZagOffset", Vec3ArgumentType.vec3())
+                                                                                .then(CommandManager.argument("zigZagRelativeOffset", Vec3ArgumentType.vec3())
                                                                                         .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
                                                                                                 .executes(this::spawnEffectLengthNoYP)
                                                                                         )
@@ -211,9 +213,9 @@ public class LineCommand implements PALCommand {
                                                 .then(CommandManager.argument("count", IntegerArgumentType.integer(0))
                                                         .then(CommandManager.argument("length", IntegerArgumentType.integer(0))
                                                                 .then(CommandManager.argument("zigZag", BoolArgumentType.bool())
-                                                                        .then(CommandManager.argument("number_of_zigZags", IntegerArgumentType.integer(0))
-                                                                                .then(CommandManager.argument("zigZag_Offset", Vec3ArgumentType.vec3())
-                                                                                        .then(CommandManager.argument("zigZag_RelativeOffset", Vec3ArgumentType.vec3())
+                                                                        .then(CommandManager.argument("zigZagsNumber", IntegerArgumentType.integer(0))
+                                                                                .then(CommandManager.argument("zigZagOffset", Vec3ArgumentType.vec3())
+                                                                                        .then(CommandManager.argument("zigZagRelativeOffset", Vec3ArgumentType.vec3())
                                                                                                 .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
                                                                                                         .executes(this::spawnEffectLength)
                                                                                                 )

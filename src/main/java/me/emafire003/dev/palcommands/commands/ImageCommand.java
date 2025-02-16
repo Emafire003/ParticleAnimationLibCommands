@@ -24,10 +24,10 @@ public class ImageCommand implements PALCommand {
 
             Vec3d vel = Vec3ArgumentType.getVec3(context, "angVelocity");
             ImageEffect imageEffect = ImageEffect
-                    .builder(source.getWorld(), Vec3ArgumentType.getVec3(context, "pos"), StringArgumentType.getString(context, "filePath"))
+                    .builder(source.getWorld(), Vec3ArgumentType.getVec3(context, "originPos"), StringArgumentType.getString(context, "filePath"))
                     .transparency(BoolArgumentType.getBool(context, "transparent"))
                     .scale(FloatArgumentType.getFloat(context, "scale"))
-                    .orient(BoolArgumentType.getBool(context, "orientPlayer"))
+                    .orient(BoolArgumentType.getBool(context, "orient"))
                     .rotation(Vec3ArgumentType.getVec3(context, "rotation"))
                     .enableRotation(BoolArgumentType.getBool(context, "rotatesDynamically"))
                     .angularVelocityX(vel.x).angularVelocityY(vel.y).angularVelocityZ(vel.z)
@@ -46,13 +46,43 @@ public class ImageCommand implements PALCommand {
         }
     }
 
-    private int spawnDemo(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+    private int spawnEffectYPR(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
         ServerCommandSource source = context.getSource();
 
         try{
 
+            Vec3d vel = Vec3ArgumentType.getVec3(context, "angVelocity");
             ImageEffect imageEffect = ImageEffect
-                    .builder(source.getWorld(), Vec3ArgumentType.getVec3(context, "pos"), StringArgumentType.getString(context, "filePath"))
+                    .builder(source.getWorld(), Vec3ArgumentType.getVec3(context, "originPos"), StringArgumentType.getString(context, "filePath"))
+                    .transparency(BoolArgumentType.getBool(context, "transparent"))
+                    .scale(FloatArgumentType.getFloat(context, "scale"))
+                    .orient(BoolArgumentType.getBool(context, "orient"))
+                    .rotation(Vec3ArgumentType.getVec3(context, "rotation"))
+                    .enableRotation(BoolArgumentType.getBool(context, "rotatesDynamically"))
+                    .angularVelocityX(vel.x).angularVelocityY(vel.y).angularVelocityZ(vel.z)
+                    .particleSize(FloatArgumentType.getFloat(context, "particleSize"))
+                    .stepX(IntegerArgumentType.getInteger(context, "stepX"))
+                    .stepX(IntegerArgumentType.getInteger(context, "stepY"))
+                    .blackAndWhite(BoolArgumentType.getBool(context, "blackAndWhite"))
+                    .invertColors(BoolArgumentType.getBool(context, "invertColors"))
+                    .yaw(FloatArgumentType.getFloat(context, "yaw"))
+                    .pitch(FloatArgumentType.getFloat(context, "pitch"))
+                    .build();
+            imageEffect.runFor(IntegerArgumentType.getInteger(context, "duration"));
+            return 1;
+        }catch(Exception e){
+            e.printStackTrace();
+            source.sendFeedback( () -> Text.literal("Error: " + e),false);
+            return 0;
+        }
+    }
+
+    private int spawnDemo(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+        ServerCommandSource source = context.getSource();
+
+        try{
+            ImageEffect imageEffect = ImageEffect
+                    .builder(source.getWorld(), Vec3ArgumentType.getVec3(context, "originPos"), StringArgumentType.getString(context, "filePath"))
                     .transparency(true).build();
             imageEffect.runFor(IntegerArgumentType.getInteger(context, "duration"));
             return 1;
@@ -69,7 +99,7 @@ public class ImageCommand implements PALCommand {
                 .literal("image")
                 .then(CommandManager.literal("demo")
                         .then(CommandManager.argument("filePath", StringArgumentType.string())
-                                .then(CommandManager.argument("pos", Vec3ArgumentType.vec3())
+                                .then(CommandManager.argument("originPos", Vec3ArgumentType.vec3())
                                         .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
                                                 .executes(this::spawnDemo)
                                         )
@@ -77,13 +107,13 @@ public class ImageCommand implements PALCommand {
                         )
                 )
                 .then(CommandManager.argument("filePath", StringArgumentType.string())
-                        .then(CommandManager.argument("pos", Vec3ArgumentType.vec3())
+                        .then(CommandManager.argument("originPos", Vec3ArgumentType.vec3())
                                 .then(CommandManager.argument("transparent", BoolArgumentType.bool())
                                         .then(CommandManager.argument("scale", FloatArgumentType.floatArg())
                                                 .then(CommandManager.argument("particleSize", FloatArgumentType.floatArg(0))
                                                         .then(CommandManager.argument("stepX", IntegerArgumentType.integer(1))
                                                                 .then(CommandManager.argument("stepY", IntegerArgumentType.integer(1))
-                                                                        .then(CommandManager.argument("orientPlayer", BoolArgumentType.bool())
+                                                                        .then(CommandManager.argument("orient", BoolArgumentType.bool())
                                                                                 .then(CommandManager.argument("rotation", Vec3ArgumentType.vec3())
                                                                                         .then(CommandManager.argument("rotatesDynamically", BoolArgumentType.bool())
                                                                                                 .then(CommandManager.argument("angVelocity", Vec3ArgumentType.vec3())
@@ -102,6 +132,43 @@ public class ImageCommand implements PALCommand {
                                                         )
                                                 )
 
+                                        )
+                                )
+
+                        )
+
+                )
+                .then(CommandManager.argument("filePath", StringArgumentType.string())
+                        .then(CommandManager.argument("originPos", Vec3ArgumentType.vec3())
+                                .then(CommandManager.argument("yaw", FloatArgumentType.floatArg())
+                                        .then(CommandManager.argument("pitch", FloatArgumentType.floatArg())
+                                                .then(CommandManager.argument("transparent", BoolArgumentType.bool())
+                                                        .then(CommandManager.argument("scale", FloatArgumentType.floatArg())
+                                                                .then(CommandManager.argument("particleSize", FloatArgumentType.floatArg(0))
+                                                                        .then(CommandManager.argument("stepX", IntegerArgumentType.integer(1))
+                                                                                .then(CommandManager.argument("stepY", IntegerArgumentType.integer(1))
+                                                                                        .then(CommandManager.argument("orient", BoolArgumentType.bool())
+                                                                                                .then(CommandManager.argument("rotation", Vec3ArgumentType.vec3())
+                                                                                                        .then(CommandManager.argument("rotatesDynamically", BoolArgumentType.bool())
+                                                                                                                .then(CommandManager.argument("angVelocity", Vec3ArgumentType.vec3())
+                                                                                                                        .then(CommandManager.argument("blackAndWhite", BoolArgumentType.bool())
+                                                                                                                                .then(CommandManager.argument("invertColors", BoolArgumentType.bool())
+                                                                                                                                        .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
+                                                                                                                                                .executes(this::spawnEffectYPR)
+                                                                                                                                        )
+                                                                                                                                )
+                                                                                                                        )
+                                                                                                                )
+                                                                                                        )
+                                                                                                )
+
+                                                                                        )
+                                                                                )
+                                                                        )
+                                                                )
+
+                                                        )
+                                                )
                                         )
                                 )
 

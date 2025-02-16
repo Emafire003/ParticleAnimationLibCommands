@@ -30,12 +30,12 @@ public class CuboidCommand implements PALCommand {
             ParticleEffect particle = ParticleEffectArgumentType.getParticle(context, "particle");
             if(BoolArgumentType.getBool(context, "useCorners")){
                 CuboidEffect effect = new CuboidEffect(source.getWorld(), particle, pos, target,
-                        IntegerArgumentType.getInteger(context, "particles_per_row"),
+                        IntegerArgumentType.getInteger(context, "particlesPerRow"),
                         DoubleArgumentType.getDouble(context, "padding"),
                         BoolArgumentType.getBool(context, "blockSnap"));
                 effect.runFor(IntegerArgumentType.getInteger(context, "duration"));
             }else{
-                CuboidEffect effect = new CuboidEffect(source.getWorld(), particle, pos, IntegerArgumentType.getInteger(context, "particles_per_row"),
+                CuboidEffect effect = new CuboidEffect(source.getWorld(), particle, pos, IntegerArgumentType.getInteger(context, "particlesPerRow"),
                         target.getX(), target.getY(), target.getZ(), // the lengths of the cuboid
                         DoubleArgumentType.getDouble(context, "padding"),
                         BoolArgumentType.getBool(context, "blockSnap"));
@@ -86,9 +86,9 @@ public class CuboidCommand implements PALCommand {
                 )
                 .then(CommandManager.argument("particle", ParticleEffectArgumentType.particleEffect(registryAccess))
                         .then(CommandManager.argument("origin", Vec3ArgumentType.vec3())
-                                .then(CommandManager.argument("target", Vec3ArgumentType.vec3())
-                                        .then(CommandManager.argument("useCorners", BoolArgumentType.bool())
-                                                .then(CommandManager.argument("particles_per_row", IntegerArgumentType.integer(0))
+                                .then(CommandManager.argument("useCorners", BoolArgumentType.bool())
+                                        .then(CommandManager.argument("target", Vec3ArgumentType.vec3())
+                                                .then(CommandManager.argument("particlesPerRow", IntegerArgumentType.integer(0))
                                                         .then(CommandManager.argument("padding", DoubleArgumentType.doubleArg())
                                                                 .then(CommandManager.argument("blockSnap", BoolArgumentType.bool())
                                                                         .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))

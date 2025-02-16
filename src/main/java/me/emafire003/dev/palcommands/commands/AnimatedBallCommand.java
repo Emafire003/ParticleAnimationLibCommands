@@ -5,7 +5,6 @@ import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.tree.LiteralCommandNode;
-import me.emafire003.dev.particleanimationlib.ParticleAnimationLib;
 import me.emafire003.dev.particleanimationlib.effects.AnimatedBallEffect;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.argument.ParticleEffectArgumentType;
