@@ -10,6 +10,8 @@ Currently available effects:
 - [3D] Animated Sphere, Sphere, Cuboid, Vortex, Cone, Donut
 - [2D] Arc, Line, Animated Circle, Images, Text
 
+**NOTE**: You will still need to download ParticleAnimationLib (the library) separately!
+
 <center>
   
 <p align="center">
