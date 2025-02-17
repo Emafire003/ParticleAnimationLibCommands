@@ -11,7 +11,7 @@ import net.minecraft.text.Text;
 import java.awt.*;
 import java.util.Arrays;
 
-public class GetFontsCommand implements PALCommand {
+public class FontListCommand implements PALCommand {
 
     private int getFontList(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
         ServerCommandSource source = context.getSource();
