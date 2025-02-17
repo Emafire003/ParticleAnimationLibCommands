@@ -21,7 +21,7 @@ Currently available effects:
 *Demo of some of the effects from version 0.0.1*
 
 ## How do I use the commands?
-You can use either `pal` or `particleanimationlib` and then use tab-completition to create your effects. They have a lot of parameters so you should probably consult the wiki first: TODO wiki link!
+You can use either `pal` or `particleanimationlib` and then use tab-completition to create your effects. They have a lot of parameters so you should probably consult the wiki first: [the wiki](https://emafire003.gitbook.io/particleanimationlibwiki/)
 
 You can quickly spawn in an effect demo using `/pal <effectname> demo <particle> <position> <duration>`.
 
