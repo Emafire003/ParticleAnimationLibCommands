@@ -9,12 +9,11 @@ import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.argument.serialize.ConstantArgumentSerializer;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.util.Identifier;
 
 public class PALCommands {
 
     public static void registerArguments(){
-        ArgumentTypeRegistry.registerArgumentType(Identifier.of(ParticleAnimationLibCommands.MOD_ID, "font_style"), FontStyleArgumentType.class, ConstantArgumentSerializer.of(FontStyleArgumentType::fontStyle));
+        ArgumentTypeRegistry.registerArgumentType(ParticleAnimationLibCommands.getIdentifier("font_styles"), FontStyleArgumentType.class, ConstantArgumentSerializer.of(FontStyleArgumentType::fontStyle));
 
     }
 
