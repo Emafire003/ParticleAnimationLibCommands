@@ -26,7 +26,8 @@
 	"depends": {
 		"fabricloader": ">=0.15.0",
 		"minecraft": ">=1.17-",
-		"java": ">=16"
+		"java": ">=16",
+		"particleanimationlib": ">=0.1.0"
 	},
 	"suggests": {
 		"another-mod": "*"
