@@ -51,6 +51,7 @@ public class TextCommand implements PALCommand {
                         false,
                         font
                 );
+                effect.setForced(BoolArgumentType.getBool(context, "force"));
                 effect.runFor(IntegerArgumentType.getInteger(context, "duration"));
 
             }else{
@@ -95,6 +96,7 @@ public class TextCommand implements PALCommand {
                     false,
                     font
             );
+            effect.setForced(BoolArgumentType.getBool(context, "force"));
             effect.runFor(IntegerArgumentType.getInteger(context, "duration"));
 
             return 1;
@@ -146,8 +148,10 @@ public class TextCommand implements PALCommand {
                                                                         .then(CommandManager.argument("font_name", StringArgumentType.string())
                                                                                 .then(CommandManager.argument("font_style", FontStyleArgumentType.fontStyle())
                                                                                         .then(CommandManager.argument("font_size", IntegerArgumentType.integer(0))
-                                                                                                .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
-                                                                                                        .executes(this::spawnEffectNoYP)
+                                                                                                .then(CommandManager.argument("force", BoolArgumentType.bool())
+                                                                                                        .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
+                                                                                                                .executes(this::spawnEffectNoYP)
+                                                                                                        )
                                                                                                 )
                                                                                         )
 
@@ -177,8 +181,10 @@ public class TextCommand implements PALCommand {
                                                                                         .then(CommandManager.argument("font_name", StringArgumentType.string())
                                                                                                 .then(CommandManager.argument("font_style", FontStyleArgumentType.fontStyle())
                                                                                                         .then(CommandManager.argument("font_size", IntegerArgumentType.integer(0))
-                                                                                                                .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
-                                                                                                                        .executes(this::spawnEffect)
+                                                                                                                .then(CommandManager.argument("force", BoolArgumentType.bool())
+                                                                                                                        .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
+                                                                                                                                .executes(this::spawnEffect)
+                                                                                                                        )
                                                                                                                 )
                                                                                                         )
 

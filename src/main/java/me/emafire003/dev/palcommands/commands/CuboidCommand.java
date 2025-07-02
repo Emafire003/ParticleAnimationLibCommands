@@ -33,12 +33,14 @@ public class CuboidCommand implements PALCommand {
                         IntegerArgumentType.getInteger(context, "particlesPerRow"),
                         DoubleArgumentType.getDouble(context, "padding"),
                         BoolArgumentType.getBool(context, "blockSnap"));
+                effect.setForced(BoolArgumentType.getBool(context, "force"));
                 effect.runFor(IntegerArgumentType.getInteger(context, "duration"));
             }else{
                 CuboidEffect effect = new CuboidEffect(source.getWorld(), particle, pos, IntegerArgumentType.getInteger(context, "particlesPerRow"),
                         target.getX(), target.getY(), target.getZ(), // the lengths of the cuboid
                         DoubleArgumentType.getDouble(context, "padding"),
                         BoolArgumentType.getBool(context, "blockSnap"));
+                effect.setForced(BoolArgumentType.getBool(context, "force"));
                 effect.runFor(IntegerArgumentType.getInteger(context, "duration"));
             }
 
@@ -91,8 +93,10 @@ public class CuboidCommand implements PALCommand {
                                                 .then(CommandManager.argument("particlesPerRow", IntegerArgumentType.integer(0))
                                                         .then(CommandManager.argument("padding", DoubleArgumentType.doubleArg())
                                                                 .then(CommandManager.argument("blockSnap", BoolArgumentType.bool())
-                                                                        .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
-                                                                                .executes(this::spawnEffect)
+                                                                        .then(CommandManager.argument("force", BoolArgumentType.bool())
+                                                                                .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
+                                                                                        .executes(this::spawnEffect)
+                                                                                )
                                                                         )
                                                                 )
                                                         )

@@ -38,6 +38,7 @@ public class LineCommand implements PALCommand {
                     Vec3ArgumentType.getVec3(context, "zigZagOffset"),
                     Vec3ArgumentType.getVec3(context, "zigZagRelativeOffset")
             );
+            effect.setForced(BoolArgumentType.getBool(context, "force"));
             effect.runFor(IntegerArgumentType.getInteger(context, "duration"));
 
             return 1;
@@ -68,6 +69,7 @@ public class LineCommand implements PALCommand {
                         Vec3ArgumentType.getVec3(context, "zigZagOffset"),
                         Vec3ArgumentType.getVec3(context, "zigZagRelativeOffset")
                 );
+                effect.setForced(BoolArgumentType.getBool(context, "force"));
                 effect.runFor(IntegerArgumentType.getInteger(context, "duration"));
 
             }else{
@@ -103,6 +105,7 @@ public class LineCommand implements PALCommand {
                         Vec3ArgumentType.getVec3(context, "zigZagOffset"),
                         Vec3ArgumentType.getVec3(context, "zigZagRelativeOffset")
                 );
+                effect.setForced(BoolArgumentType.getBool(context, "force"));
                 effect.runFor(IntegerArgumentType.getInteger(context, "duration"));
 
             }else{
@@ -170,8 +173,10 @@ public class LineCommand implements PALCommand {
                                                                 .then(CommandManager.argument("zigZagsNumber", IntegerArgumentType.integer(0))
                                                                         .then(CommandManager.argument("zigZagOffset", Vec3ArgumentType.vec3())
                                                                                 .then(CommandManager.argument("zigZagRelativeOffset", Vec3ArgumentType.vec3())
-                                                                                        .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
-                                                                                                .executes(this::spawnEffectTarget)
+                                                                                        .then(CommandManager.argument("force", BoolArgumentType.bool())
+                                                                                                .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
+                                                                                                        .executes(this::spawnEffectTarget)
+                                                                                                )
                                                                                         )
                                                                                 )
                                                                         )
@@ -193,8 +198,10 @@ public class LineCommand implements PALCommand {
                                                                 .then(CommandManager.argument("zigZagsNumber", IntegerArgumentType.integer(0))
                                                                         .then(CommandManager.argument("zigZagOffset", Vec3ArgumentType.vec3())
                                                                                 .then(CommandManager.argument("zigZagRelativeOffset", Vec3ArgumentType.vec3())
-                                                                                        .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
-                                                                                                .executes(this::spawnEffectLengthNoYP)
+                                                                                        .then(CommandManager.argument("force", BoolArgumentType.bool())
+                                                                                                .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
+                                                                                                        .executes(this::spawnEffectLengthNoYP)
+                                                                                                )
                                                                                         )
                                                                                 )
                                                                         )
@@ -216,8 +223,10 @@ public class LineCommand implements PALCommand {
                                                                         .then(CommandManager.argument("zigZagsNumber", IntegerArgumentType.integer(0))
                                                                                 .then(CommandManager.argument("zigZagOffset", Vec3ArgumentType.vec3())
                                                                                         .then(CommandManager.argument("zigZagRelativeOffset", Vec3ArgumentType.vec3())
-                                                                                                .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
-                                                                                                        .executes(this::spawnEffectLength)
+                                                                                                .then(CommandManager.argument("force", BoolArgumentType.bool())
+                                                                                                        .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
+                                                                                                                .executes(this::spawnEffectLength)
+                                                                                                        )
                                                                                                 )
                                                                                         )
                                                                                 )

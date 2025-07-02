@@ -1,5 +1,6 @@
 package me.emafire003.dev.palcommands.commands;
 
+import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.FloatArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.context.CommandContext;
@@ -43,6 +44,7 @@ public class AnimatedBallCommand implements PALCommand {
             AnimatedBallEffect effect = new AnimatedBallEffect(source.getWorld(), particle, pos,
                     IntegerArgumentType.getInteger(context, "count"), IntegerArgumentType.getInteger(context, "perIteration"),
                     FloatArgumentType.getFloat(context, "size"));
+            effect.setForced(BoolArgumentType.getBool(context, "force"));
             effect.runFor(IntegerArgumentType.getInteger(context, "duration"));
 
             return 1;
@@ -67,6 +69,7 @@ public class AnimatedBallCommand implements PALCommand {
                     IntegerArgumentType.getInteger(context, "count"), IntegerArgumentType.getInteger(context, "perIteration"),
                     FloatArgumentType.getFloat(context, "size"),
                     factors, rotations);
+            effect.setForced(BoolArgumentType.getBool(context, "force"));
             effect.runFor(IntegerArgumentType.getInteger(context, "duration"));
 
             return 1;
@@ -97,8 +100,10 @@ public class AnimatedBallCommand implements PALCommand {
                                 .then(CommandManager.argument("count", IntegerArgumentType.integer())
                                         .then(CommandManager.argument("perIteration", IntegerArgumentType.integer(0))
                                                 .then(CommandManager.argument("size", FloatArgumentType.floatArg(0))
-                                                        .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
-                                                                .executes(this::spawnSize)
+                                                        .then(CommandManager.argument("force", BoolArgumentType.bool())
+                                                                .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
+                                                                        .executes(this::spawnSize)
+                                                                )
                                                         )
                                                 )
                                         )
@@ -112,8 +117,10 @@ public class AnimatedBallCommand implements PALCommand {
                                                 .then(CommandManager.argument("size", FloatArgumentType.floatArg(0))
                                                         .then(CommandManager.argument("factors", Vec3ArgumentType.vec3())
                                                                 .then(CommandManager.argument("rotation", Vec3ArgumentType.vec3())
-                                                                        .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
-                                                                                .executes(this::spawnAll)
+                                                                        .then(CommandManager.argument("force", BoolArgumentType.bool())
+                                                                                .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
+                                                                                        .executes(this::spawnAll)
+                                                                                )
                                                                         )
                                                                 )
                                                         )

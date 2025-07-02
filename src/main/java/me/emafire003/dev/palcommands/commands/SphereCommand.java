@@ -33,6 +33,7 @@ public class SphereCommand implements PALCommand {
                     BoolArgumentType.getBool(context, "halfSphere"),
                     BoolArgumentType.getBool(context, "invertHalfSphere")
             );
+            effect.setForced(BoolArgumentType.getBool(context, "force"));
             effect.runFor(IntegerArgumentType.getInteger(context, "duration"));
 
             return 1;
@@ -81,8 +82,10 @@ public class SphereCommand implements PALCommand {
                                                         .then(CommandManager.argument("particleIncrease", IntegerArgumentType.integer(0))
                                                                 .then(CommandManager.argument("halfSphere", BoolArgumentType.bool())
                                                                         .then(CommandManager.argument("invertHalfSphere", BoolArgumentType.bool())
-                                                                                .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
-                                                                                        .executes(this::spawnEffect)
+                                                                                .then(CommandManager.argument("force", BoolArgumentType.bool())
+                                                                                        .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
+                                                                                                .executes(this::spawnEffect)
+                                                                                        )
                                                                                 )
                                                                         )
                                                                 )
