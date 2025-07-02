@@ -34,6 +34,7 @@ public class ConeCommand implements PALCommand {
                         BoolArgumentType.getBool(context, "solid"), BoolArgumentType.getBool(context, "randomStart")
                 );
                 effect.setFlipped(BoolArgumentType.getBool(context, "inverted"));
+                effect.setForced(BoolArgumentType.getBool(context, "force"));
                 effect.runFor(IntegerArgumentType.getInteger(context, "duration"));
 
             }else{
@@ -63,6 +64,7 @@ public class ConeCommand implements PALCommand {
                     BoolArgumentType.getBool(context, "solid"), BoolArgumentType.getBool(context, "randomStart")
             );
             effect.setFlipped(BoolArgumentType.getBool(context, "inverted"));
+            effect.setForced(BoolArgumentType.getBool(context, "force"));
             effect.runFor(IntegerArgumentType.getInteger(context, "duration"));
 
             return 1;
@@ -116,8 +118,10 @@ public class ConeCommand implements PALCommand {
                                                                                         .then(CommandManager.argument("solid", BoolArgumentType.bool())
                                                                                                 .then(CommandManager.argument("randomStart", BoolArgumentType.bool())
                                                                                                         .then(CommandManager.argument("inverted", BoolArgumentType.bool())
-                                                                                                                .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
-                                                                                                                        .executes(this::spawnEffectNoYP)
+                                                                                                                .then(CommandManager.argument("force", BoolArgumentType.bool())
+                                                                                                                        .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
+                                                                                                                                .executes(this::spawnEffectNoYP)
+                                                                                                                        )
                                                                                                                 )
                                                                                                         )
                                                                                                 )
@@ -149,8 +153,10 @@ public class ConeCommand implements PALCommand {
                                                                                                         .then(CommandManager.argument("solid", BoolArgumentType.bool())
                                                                                                                 .then(CommandManager.argument("randomStart", BoolArgumentType.bool())
                                                                                                                         .then(CommandManager.argument("inverted", BoolArgumentType.bool())
-                                                                                                                                .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
-                                                                                                                                        .executes(this::spawnEffect)
+                                                                                                                                .then(CommandManager.argument("force", BoolArgumentType.bool())
+                                                                                                                                        .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
+                                                                                                                                                .executes(this::spawnEffect)
+                                                                                                                                        )
                                                                                                                                 )
                                                                                                                         )
                                                                                                                 )

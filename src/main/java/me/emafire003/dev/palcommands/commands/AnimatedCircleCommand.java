@@ -35,6 +35,7 @@ public class AnimatedCircleCommand implements PALCommand {
                         Vec3ArgumentType.getVec3(context, "rotations")
 
                 );
+                effect.setForced(BoolArgumentType.getBool(context, "force"));
                 effect.runFor(IntegerArgumentType.getInteger(context, "duration"));
 
             }else{
@@ -67,6 +68,7 @@ public class AnimatedCircleCommand implements PALCommand {
                     Vec3ArgumentType.getVec3(context, "rotations")
 
             );
+            effect.setForced(BoolArgumentType.getBool(context, "force"));
             effect.runFor(IntegerArgumentType.getInteger(context, "duration"));
 
             return 1;
@@ -119,8 +121,10 @@ public class AnimatedCircleCommand implements PALCommand {
                                                                                 .then(CommandManager.argument("enableRotation", BoolArgumentType.bool())
                                                                                         .then(CommandManager.argument("angularVelocity", Vec3ArgumentType.vec3())
                                                                                                 .then(CommandManager.argument("rotations", Vec3ArgumentType.vec3())
-                                                                                                        .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
-                                                                                                                .executes(this::spawnEffectNoYP)
+                                                                                                        .then(CommandManager.argument("force", BoolArgumentType.bool())
+                                                                                                                .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
+                                                                                                                        .executes(this::spawnEffectNoYP)
+                                                                                                                )
                                                                                                         )
                                                                                                 )
 
@@ -153,8 +157,10 @@ public class AnimatedCircleCommand implements PALCommand {
                                                                                                 .then(CommandManager.argument("enableRotation", BoolArgumentType.bool())
                                                                                                         .then(CommandManager.argument("angularVelocity", Vec3ArgumentType.vec3())
                                                                                                                 .then(CommandManager.argument("rotations", Vec3ArgumentType.vec3())
-                                                                                                                        .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
-                                                                                                                                .executes(this::spawnEffect)
+                                                                                                                        .then(CommandManager.argument("force", BoolArgumentType.bool())
+                                                                                                                                .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
+                                                                                                                                        .executes(this::spawnEffect)
+                                                                                                                                )
                                                                                                                         )
                                                                                                                 )
 

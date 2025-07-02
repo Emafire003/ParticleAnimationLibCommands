@@ -34,6 +34,7 @@ public class VortexCommand implements PALCommand {
                         IntegerArgumentType.getInteger(context, "helixes")
                 );
                 effect.setFlipped(BoolArgumentType.getBool(context, "flipped"));
+                effect.setForced(BoolArgumentType.getBool(context, "force"));
                 effect.runFor(IntegerArgumentType.getInteger(context, "duration"));
 
             }else{
@@ -64,6 +65,7 @@ public class VortexCommand implements PALCommand {
 
             );
             effect.setFlipped(BoolArgumentType.getBool(context, "flipped"));
+            effect.setForced(BoolArgumentType.getBool(context, "force"));
             effect.runFor(IntegerArgumentType.getInteger(context, "duration"));
 
             return 1;
@@ -114,8 +116,10 @@ public class VortexCommand implements PALCommand {
                                                                         .then(CommandManager.argument("circles", IntegerArgumentType.integer(0))
                                                                                 .then(CommandManager.argument("helixes", IntegerArgumentType.integer(0))
                                                                                         .then(CommandManager.argument("flipped", BoolArgumentType.bool())
-                                                                                                .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
-                                                                                                        .executes(this::spawnEffectNoYP)
+                                                                                                .then(CommandManager.argument("force", BoolArgumentType.bool())
+                                                                                                        .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
+                                                                                                                .executes(this::spawnEffectNoYP)
+                                                                                                        )
                                                                                                 )
                                                                                         )
 
@@ -145,8 +149,10 @@ public class VortexCommand implements PALCommand {
                                                                                         .then(CommandManager.argument("circles", IntegerArgumentType.integer(0))
                                                                                                 .then(CommandManager.argument("helixes", IntegerArgumentType.integer(0))
                                                                                                         .then(CommandManager.argument("flipped", BoolArgumentType.bool())
-                                                                                                                .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
-                                                                                                                        .executes(this::spawnEffect)
+                                                                                                                .then(CommandManager.argument("force", BoolArgumentType.bool())
+                                                                                                                        .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
+                                                                                                                                .executes(this::spawnEffect)
+                                                                                                                        )
                                                                                                                 )
                                                                                                         )
                                                                                                 )

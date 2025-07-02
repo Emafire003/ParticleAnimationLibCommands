@@ -1,5 +1,6 @@
 package me.emafire003.dev.palcommands.commands;
 
+import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.FloatArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.context.CommandContext;
@@ -40,6 +41,7 @@ public class DonutCommand implements PALCommand {
                         IntegerArgumentType.getInteger(context, "circlesIncrease"),
                         IntegerArgumentType.getInteger(context, "circlesIncreaseEvery")
                 );
+                effect.setForced(BoolArgumentType.getBool(context, "force"));
                 effect.runFor(IntegerArgumentType.getInteger(context, "duration"));
 
             }else{
@@ -70,6 +72,7 @@ public class DonutCommand implements PALCommand {
                         .radiusTube(FloatArgumentType.getFloat(context, "radiusTube"))
                         .rotation(Vec3ArgumentType.getVec3(context, "rotation"))
                         .build();
+                effect.setForced(BoolArgumentType.getBool(context, "force"));
                 effect.runFor(IntegerArgumentType.getInteger(context, "duration"));
 
             }else{
@@ -165,8 +168,10 @@ public class DonutCommand implements PALCommand {
                                                                                                 .then(CommandManager.argument("particleIncreaseEvery", IntegerArgumentType.integer(1))
                                                                                                         .then(CommandManager.argument("circlesIncrease", IntegerArgumentType.integer(0))
                                                                                                                 .then(CommandManager.argument("circlesIncreaseEvery", IntegerArgumentType.integer(1))
-                                                                                                                        .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
-                                                                                                                                .executes(this::spawnEffectNoYP)
+                                                                                                                        .then(CommandManager.argument("force", BoolArgumentType.bool())
+                                                                                                                                .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
+                                                                                                                                        .executes(this::spawnEffectNoYP)
+                                                                                                                                )
                                                                                                                         )
                                                                                                                 )
                                                                                                         )
@@ -192,8 +197,10 @@ public class DonutCommand implements PALCommand {
                                                 .then(CommandManager.argument("radiusDonut", FloatArgumentType.floatArg())
                                                         .then(CommandManager.argument("radiusTube", FloatArgumentType.floatArg())
                                                                 .then(CommandManager.argument("rotation", Vec3ArgumentType.vec3())
-                                                                        .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
-                                                                                .executes(this::spawnEffectSimple)
+                                                                        .then(CommandManager.argument("force", BoolArgumentType.bool())
+                                                                                .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
+                                                                                        .executes(this::spawnEffectSimple)
+                                                                                )
                                                                         )
                                                                 )
                                                         )
@@ -221,8 +228,10 @@ public class DonutCommand implements PALCommand {
                                                                                                                 .then(CommandManager.argument("particleIncreaseEvery", IntegerArgumentType.integer(1))
                                                                                                                         .then(CommandManager.argument("circlesIncrease", IntegerArgumentType.integer(0))
                                                                                                                                 .then(CommandManager.argument("circlesIncreaseEvery", IntegerArgumentType.integer(1))
-                                                                                                                                        .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
-                                                                                                                                                .executes(this::spawnEffectFull)
+                                                                                                                                        .then(CommandManager.argument("force", BoolArgumentType.bool())
+                                                                                                                                                .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
+                                                                                                                                                        .executes(this::spawnEffectFull)
+                                                                                                                                                )
                                                                                                                                         )
                                                                                                                                 )
                                                                                                                         )

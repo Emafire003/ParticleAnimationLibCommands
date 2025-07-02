@@ -37,6 +37,7 @@ public class ImageCommand implements PALCommand {
                     .blackAndWhite(BoolArgumentType.getBool(context, "blackAndWhite"))
                     .invertColors(BoolArgumentType.getBool(context, "invertColors"))
                     .build();
+            imageEffect.setForced(BoolArgumentType.getBool(context, "force"));
             imageEffect.runFor(IntegerArgumentType.getInteger(context, "duration"));
             return 1;
         }catch(Exception e){
@@ -68,6 +69,7 @@ public class ImageCommand implements PALCommand {
                     .yaw(FloatArgumentType.getFloat(context, "yaw"))
                     .pitch(FloatArgumentType.getFloat(context, "pitch"))
                     .build();
+            imageEffect.setForced(BoolArgumentType.getBool(context, "force"));
             imageEffect.runFor(IntegerArgumentType.getInteger(context, "duration"));
             return 1;
         }catch(Exception e){
@@ -119,8 +121,10 @@ public class ImageCommand implements PALCommand {
                                                                                                 .then(CommandManager.argument("angVelocity", Vec3ArgumentType.vec3())
                                                                                                         .then(CommandManager.argument("blackAndWhite", BoolArgumentType.bool())
                                                                                                                 .then(CommandManager.argument("invertColors", BoolArgumentType.bool())
-                                                                                                                        .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
-                                                                                                                                .executes(this::spawnEffect)
+                                                                                                                        .then(CommandManager.argument("force", BoolArgumentType.bool())
+                                                                                                                                .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
+                                                                                                                                        .executes(this::spawnEffect)
+                                                                                                                                )
                                                                                                                         )
                                                                                                                 )
                                                                                                         )
@@ -153,8 +157,10 @@ public class ImageCommand implements PALCommand {
                                                                                                                 .then(CommandManager.argument("angVelocity", Vec3ArgumentType.vec3())
                                                                                                                         .then(CommandManager.argument("blackAndWhite", BoolArgumentType.bool())
                                                                                                                                 .then(CommandManager.argument("invertColors", BoolArgumentType.bool())
-                                                                                                                                        .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
-                                                                                                                                                .executes(this::spawnEffectYPR)
+                                                                                                                                        .then(CommandManager.argument("force", BoolArgumentType.bool())
+                                                                                                                                                .then(CommandManager.argument("duration", IntegerArgumentType.integer(0))
+                                                                                                                                                        .executes(this::spawnEffectYPR)
+                                                                                                                                                )
                                                                                                                                         )
                                                                                                                                 )
                                                                                                                         )
