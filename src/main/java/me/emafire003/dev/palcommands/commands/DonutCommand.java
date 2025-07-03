@@ -133,6 +133,7 @@ public class DonutCommand implements PALCommand {
                     IntegerArgumentType.getInteger(context, "circlesIncrease"),
                     IntegerArgumentType.getInteger(context, "increaseCirclesEvery")
             );
+            effect.setForced(BoolArgumentType.getBool(context, "force"));
             effect.runFor(IntegerArgumentType.getInteger(context, "duration"));
 
             return 1;
